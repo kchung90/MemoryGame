@@ -226,6 +226,7 @@ function gameLost() {
 
 function terminateGame() {
     if (confirm(TERMINATE_GAME_MSG)) {
+        localStorage.setItem("score", score);
         window.location.href = PATH_TO_SUMMARY;
     }
 }
@@ -233,9 +234,10 @@ function terminateGame() {
 function displaySummary() {
     let summary = document.getElementById("dashboard-summary");
     let userScore = document.createElement("div");
+    let currentScore = localStorage.getItem("score");
 
     userScore.classList.add("userInfo");
-    userScore.innerHTML = DASHBOARD_SCORE + score;
+    userScore.innerHTML = DASHBOARD_SCORE + currentScore;
 
     summary.appendChild(userScore);
 }
