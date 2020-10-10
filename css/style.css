@@ -1,0 +1,69 @@
+h1 {
+    text-align: center;
+}
+
+#container {
+    width: 100%;
+    text-align: center;
+}
+
+#board {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.square {
+    display: inline-block;
+    border: none;
+    width: 60px;
+    height: 60px;
+    margin: 0px 2px;
+}
+
+#dashboard, #dashboard-summary {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.userInfo {
+    display: inline-block;
+    margin: 20px;
+    font-size: 24px;
+}
+
+#button-container {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 80px;
+}
+
+#terminateButton {
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+}
+
+#submitButton {
+    background-color: #2F4F4F;
+    color: #FFFFFF;
+    border: none;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+}
+
+#restartButton {
+    background-color: #CC5500;
+    color: #FFFFFF;
+    border: none;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+}
