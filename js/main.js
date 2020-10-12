@@ -27,7 +27,11 @@ function Square(className, color, index, isCorrect, isClicked) {
 }
 
 function startGame() {
-    updateUserInfo();
+    displayUserInfo();
+    generateBoard();
+}
+
+function generateBoard() {
     document.getElementById("board").innerHTML = "";
 
     for (let i = 0; i < numRow; i++) {
@@ -45,28 +49,10 @@ function startGame() {
             );
             let squareDiv = square.createSquare();
             row.appendChild(squareDiv);
-
             squareArray.push(squareDiv);
-
-            squareDiv.addEventListener("click", flip);
+            squareDiv.addEventListener("click", flipSquare);
         }
     }
-    // for (let i = 0; i < numRow; i++) {
-    //     let row = document.createElement("div");
-    //     row.classList.add("row");
-    //     document.getElementById("board").appendChild(row);
-
-    //     for (let j = 0; j < numCol; j++) {
-    //         let square = document.createElement("div");
-    //         square.classList.add("square");
-    //         square.style.backgroundColor = DEFAULT_SQUARE_COLOR;
-    //         square.setAttribute("data-index", i * numCol + j);
-    //         square.setAttribute("data-is-correct", "false");
-    //         row.appendChild(square);
-
-    //         squareArray.push(square);
-    //     }
-    // }
 
     while (correctSquareIndex.length < numCorrect) {
         let randomNumber = Math.floor(Math.random() * squareArray.length);
@@ -99,7 +85,7 @@ function revealAnswer() {
     }, 1500);
 }
 
-function flip() {
+function flipSquare() {
     let squareIsCorrect = this.getAttribute("data-is-correct");
     let squareIsClicked = this.getAttribute("data-is-clicked");
     let sqIndex = this.getAttribute("data-index");
@@ -153,7 +139,8 @@ function goToNextLevel() {
     numTrial++;
     squareArray = [];
     correctSquareIndex = [];
-    startGame();
+    updateUserInfo();
+    generateBoard();
 }
 
 function goToPreviousLevel() {
@@ -172,7 +159,8 @@ function goToPreviousLevel() {
     squareArray = [];
     correctSquareIndex = [];
     wrongSquares = [];
-    startGame();
+    updateUserInfo();
+    generateBoard();
 }
 
 function rotateBoard() {
@@ -198,8 +186,6 @@ function displayUserInfo() {
     userInfoDiv.appendChild(currentTiles);
     userInfoDiv.appendChild(currentTrial);
     userInfoDiv.appendChild(currentScore);
-
-    startGame();
 }
 
 function updateUserInfo() {
@@ -220,7 +206,8 @@ function gameLost() {
         correctSquareIndex = [];
         wrongSquares = [];
         counter = 0;
-        startGame();
+        generateBoard();
+    } else {
     }
 }
 
@@ -228,6 +215,7 @@ function terminateGame() {
     if (confirm(TERMINATE_GAME_MSG)) {
         localStorage.setItem("score", score);
         window.location.href = PATH_TO_SUMMARY;
+    } else {
     }
 }
 
