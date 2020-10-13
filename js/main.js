@@ -175,9 +175,9 @@ function displayUserInfo() {
     let currentTrial = document.createElement("div");
     let currentScore = document.createElement("div");
 
-    currentTiles.classList.add("userInfo");
-    currentTrial.classList.add("userInfo");
-    currentScore.classList.add("userInfo");
+    currentTiles.classList.add("user-info");
+    currentTrial.classList.add("user-info");
+    currentScore.classList.add("user-info");
 
     currentTiles.innerHTML = DASHBOARD_TILES + numCorrect;
     currentTrial.innerHTML = DASHBOARD_TRIAL + numTrial;
@@ -189,7 +189,7 @@ function displayUserInfo() {
 }
 
 function updateUserInfo() {
-    let currentUserInfo = document.getElementsByClassName("userInfo");
+    let currentUserInfo = document.getElementsByClassName("user-info");
     currentUserInfo[0].innerHTML = DASHBOARD_TILES + numCorrect;
     currentUserInfo[1].innerHTML = DASHBOARD_TRIAL + numTrial;
     currentUserInfo[2].innerHTML = DASHBOARD_SCORE + score;
@@ -224,7 +224,7 @@ function displaySummary() {
     let userScore = document.createElement("div");
     let currentScore = localStorage.getItem("score");
 
-    userScore.classList.add("userInfo");
+    userScore.classList.add("user-info");
     userScore.innerHTML = DASHBOARD_SCORE + currentScore;
 
     summary.appendChild(userScore);
