@@ -96,11 +96,13 @@ function flipSquare() {
             this.style.backgroundColor = CORRECT_SQUARE_COLOR;
             score++;
             updateUserInfo();
+            playAudio(CORRECT_CLICK);
         } else if (squareIsCorrect === "false") {
             this.setAttribute("data-is-clicked", "true");
             this.style.backgroundColor = WRONG_SQUARE_COLOR;
             score--;
             updateUserInfo();
+            playAudio(WRONG_CLICK);
 
             if (score <= 0) {
                 gameLost();
@@ -141,6 +143,7 @@ function goToNextLevel() {
     correctSquareIndex = [];
     updateUserInfo();
     generateBoard();
+    playAudio(NEXT_LEVEL);
 }
 
 function goToPreviousLevel() {
@@ -161,6 +164,7 @@ function goToPreviousLevel() {
     wrongSquares = [];
     updateUserInfo();
     generateBoard();
+    playAudio(NEXT_LEVEL);
 }
 
 function rotateBoard() {
@@ -217,6 +221,11 @@ function terminateGame() {
         window.location.href = PATH_TO_SUMMARY;
     } else {
     }
+}
+
+function playAudio(path) {
+    let audio = new Audio(path);
+    audio.play();
 }
 
 function displaySummary() {
