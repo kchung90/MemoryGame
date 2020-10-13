@@ -45,7 +45,7 @@ function generateBoard() {
                 DEFAULT_SQUARE_COLOR,
                 i * numCol + j,
                 "false",
-                "false"
+                "true"
             );
             let squareDiv = square.createSquare();
             row.appendChild(squareDiv);
@@ -77,11 +77,11 @@ function revealAnswer() {
     }
 
     setTimeout(function () {
+        rotateBoard();
         for (let i = 0; i < squareArray.length; i++) {
             squareArray[i].style.backgroundColor = DEFAULT_SQUARE_COLOR;
+            squareArray[i].setAttribute("data-is-clicked", "false");
         }
-
-        rotateBoard();
     }, 1500);
 }
 
@@ -103,10 +103,6 @@ function flipSquare() {
             score--;
             updateUserInfo();
             playAudio(WRONG_CLICK);
-
-            if (score <= 0) {
-                gameLost();
-            }
         }
 
         if (correctSquareIndex.includes(Number(sqIndex))) {
@@ -114,14 +110,18 @@ function flipSquare() {
         } else {
             wrongSquares.push(sqIndex);
         }
-    }
 
-    if (counter === numCorrect && wrongSquares.length === 0) {
-        counter = 0;
-        setTimeout(goToNextLevel, 500);
-    } else if (counter === numCorrect && wrongSquares.length > 0) {
-        counter = 0;
-        setTimeout(goToPreviousLevel, 500);
+        if (score <= 0) {
+            gameLost();
+        } else {
+            if (counter === numCorrect && wrongSquares.length === 0) {
+                counter = 0;
+                setTimeout(goToNextLevel, 500);
+            } else if (counter === numCorrect && wrongSquares.length > 0) {
+                counter = 0;
+                setTimeout(goToPreviousLevel, 500);
+            }
+        }
     }
 }
 
@@ -210,8 +210,12 @@ function gameLost() {
         correctSquareIndex = [];
         wrongSquares = [];
         counter = 0;
+        updateUserInfo();
         generateBoard();
     } else {
+        for (let i = 0; i < squareArray.length; i++) {
+            squareArray[i].setAttribute("data-is-clicked", "true");
+        }
     }
 }
 
@@ -240,6 +244,20 @@ function displaySummary() {
 }
 
 function restartGame() {
+    numRow = MIN_SQUARE;
+        numCol = MIN_SQUARE;
+        numCorrect = MIN_SQUARE;
+        numTrial = 1;
+        score = 0;
+        squareArray = [];
+        correctSquareIndex = [];
+        wrongSquares = [];
+        counter = 0;
+        updateUserInfo();
+        generateBoard();
+}
+
+function returnToGame() {
     window.location.href = PATH_TO_INDEX;
 }
 
