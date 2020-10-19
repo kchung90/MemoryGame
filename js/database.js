@@ -15,6 +15,13 @@ const db = mysql.createConnection({
     database: "heroku_37412a89fd8ee50",
 });
 
+db.connect(function (err) {
+    if (err) {
+        throw err;
+    }
+    console.log("Connected");
+});
+
 http.createServer(function (req, res) {
     let q = url.parse(req.url, true);
     let scoreTable = "<table><tr><th>Rank</th><th>Name</th><th>Score</th></tr>";
