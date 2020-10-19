@@ -1,0 +1,24 @@
+{
+  "name": "memorygame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/database.js",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node js/database.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kchung90/MemoryGame.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kchung90/MemoryGame/issues"
+  },
+  "homepage": "https://github.com/kchung90/MemoryGame#readme"
+}

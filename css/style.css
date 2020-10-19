@@ -12,6 +12,11 @@ h1 {
     margin: 0 auto;
 }
 
+table {
+    display: inline-block;
+    margin: 0 auto;
+}
+
 .square {
     display: inline-block;
     border: none;

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Leader Board</title>
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+    <body onload="loadTable()">
+        <h1>Your Summary</h1>
+
+        <div id="container"></div>
+
+        <script>
+            function loadTable() {
+                let xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "http://localhost:8888/", true);
+                xhttp.send();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(
+                            "container"
+                        ).innerHTML = this.responseText;
+                    }
+                };
+            }
+        </script>
+
+        <script src="./js/constants.js"></script>
+        <script src="./js/main.js"></script>
+    </body>
+</html>
