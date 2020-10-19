@@ -2,11 +2,6 @@ const http = require("http");
 const mysql = require("mysql");
 const url = require("url");
 
-// http.createServer(function (req, res) {
-//     res.writeHead(200, {"Content-Type": "text/plain"});
-//     res.end("Hello World");
-// }).listen(process.env.PORT);
-
 const db = mysql.createConnection({
     host: "us-cdbr-east-02.cleardb.com",
     user: "ba6b03a3eba02a",

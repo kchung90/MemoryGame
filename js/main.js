@@ -326,11 +326,7 @@ function submitData() {
     if (name !== null && name !== "") {
         xhttp.open("GET", "https://memorygame-db.herokuapp.com/?name=" + name + "&score=" + score, true);
         xhttp.send();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                // document.getElementById("server-time").innerHTML = this.responseText;
-            }
-        }
+        window.location.href = PATH_TO_LEADERBOARD;
     } else {
         alert("Name must be filled in!");
     }
