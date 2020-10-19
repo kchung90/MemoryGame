@@ -346,7 +346,7 @@ function loadLeaderboard() {
             document.getElementById(
                 "container"
             ).innerHTML = this.responseText;
-            displayUserRank();
+            // displayUserRank();
         }
     };
 }
