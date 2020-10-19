@@ -2,6 +2,12 @@ const http = require("http");
 const mysql = require("mysql");
 const url = require("url");
 
+// const db = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database: "comp4537",
+// });
 const db = mysql.createConnection({
     host: "us-cdbr-east-02.cleardb.com",
     user: "ba6b03a3eba02a",
@@ -25,6 +31,7 @@ http.createServer(function (req, res) {
                 throw err;
             }
             console.log("Data Inserted");
+            res.end();
         });
     }
 
@@ -40,3 +47,4 @@ http.createServer(function (req, res) {
         res.end();
     });
 }).listen(process.env.PORT);
+// }).listen(8888);

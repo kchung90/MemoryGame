@@ -325,8 +325,13 @@ function submitData() {
     console.log(score);
     if (name !== null && name !== "") {
         xhttp.open("GET", "https://memorygame-db.herokuapp.com/?name=" + name + "&score=" + score, true);
+        // xhttp.open("GET", "http://localhost:8888/?name=" + name + "&score=" + score, true);
         xhttp.send();
-        window.location.href = PATH_TO_LEADERBOARD;
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                window.location.href = PATH_TO_LEADERBOARD;
+            }
+        };
     } else {
         alert("Name must be filled in!");
     }
@@ -335,6 +340,7 @@ function submitData() {
 function loadLeaderboard() {
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://memorygame-db.herokuapp.com/", true);
+    // xhttp.open("GET", "http://localhost:8888/", true);
     xhttp.send();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {

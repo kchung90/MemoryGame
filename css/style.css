@@ -15,11 +15,11 @@ h1 {
 table {
     display: inline-block;
     margin: 0 auto;
-    width: 60%;
 }
 
 th, td {
     height: 50px;
+    width: 300px;
     padding: 15px;
     text-align: center;
     vertical-align: middle;
@@ -35,7 +35,8 @@ th, td {
 }
 
 #dashboard,
-#dashboard-summary {
+#dashboard-summary,
+#dashboard-score {
     display: inline-block;
     width: 100%;
     text-align: center;
