@@ -321,8 +321,7 @@ function submitData() {
     let xhttp = new XMLHttpRequest();
     let score = localStorage.getItem("score");
     let name = document.getElementById("name-input").value;
-    console.log(name);
-    console.log(score);
+    localStorage.setItem("name", name);
     if (name !== null && name !== "") {
         xhttp.open("GET", "https://memorygame-db.herokuapp.com/?name=" + name + "&score=" + score, true);
         // xhttp.open("GET", "http://localhost:8888/?name=" + name + "&score=" + score, true);
@@ -347,6 +346,20 @@ function loadLeaderboard() {
             document.getElementById(
                 "container"
             ).innerHTML = this.responseText;
+            displayUserRank();
         }
     };
+}
+
+function displayUserRank() {
+    let xhttp = new XMLHttpRequest();
+    let name = localStorage.getItem("name");
+    xhttp.open("GET", "https://memorygame-db.herokuapp.com/?rank=1&name=" + name, true);
+    // xhttp.open("GET", "http://localhost:8888/?rank=1&name=" + name, true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("dashboard-rank").innerHTML = this.responseText;
+        }
+    }
 }

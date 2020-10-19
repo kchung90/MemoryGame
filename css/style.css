@@ -36,7 +36,7 @@ th, td {
 
 #dashboard,
 #dashboard-summary,
-#dashboard-score {
+#dashboard-rank {
     display: inline-block;
     width: 100%;
     text-align: center;
@@ -44,7 +44,7 @@ th, td {
     margin-bottom: 50px;
 }
 
-.user-info {
+#dashboard-rank div, .user-info {
     display: inline-block;
     margin: 20px;
     font-size: 24px;
