@@ -8,18 +8,11 @@ const url = require("url");
 //     password: "",
 //     database: "comp4537",
 // });
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: "us-cdbr-east-02.cleardb.com",
     user: "ba6b03a3eba02a",
     password: "fc06b754",
     database: "heroku_37412a89fd8ee50",
-});
-
-db.connect(function (err) {
-    if (err) {
-        throw err;
-    }
-    console.log("Connected");
 });
 
 http.createServer(function (req, res) {
