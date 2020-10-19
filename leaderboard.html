@@ -6,25 +6,10 @@
         <title>Leader Board</title>
         <link rel="stylesheet" href="./css/style.css" />
     </head>
-    <body onload="loadTable()">
+    <body onload="loadLeaderboard()">
         <h1>Your Summary</h1>
 
         <div id="container"></div>
-
-        <script>
-            function loadTable() {
-                let xhttp = new XMLHttpRequest();
-                xhttp.open("GET", "https://memorygame-db.herokuapp.com/", true);
-                xhttp.send();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        document.getElementById(
-                            "container"
-                        ).innerHTML = this.responseText;
-                    }
-                };
-            }
-        </script>
 
         <script src="./js/constants.js"></script>
         <script src="./js/main.js"></script>
