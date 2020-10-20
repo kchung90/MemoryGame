@@ -8,12 +8,13 @@ const url = require("url");
 //     password: "",
 //     database: "comp4537",
 // });
-const db = mysql.createPool({
-    host: "us-cdbr-east-02.cleardb.com",
-    user: "ba6b03a3eba02a",
-    password: "fc06b754",
-    database: "heroku_37412a89fd8ee50",
-});
+// const db = mysql.createPool({
+//     host: "us-cdbr-east-02.cleardb.com",
+//     user: "ba6b03a3eba02a",
+//     password: "fc06b754",
+//     database: "heroku_37412a89fd8ee50",
+// });
+const db = mysql.createPool(process.env.JAWSDB_URL);
 
 http.createServer(function (req, res) {
     let q = url.parse(req.url, true);
