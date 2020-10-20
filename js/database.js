@@ -31,22 +31,24 @@ http.createServer(function (req, res) {
                 throw err;
             }
             console.log("Data Inserted");
+            let inserted_id = results.insertId;
+            res.write(inserted_id.toString());
             res.end();
         });
-    // } else if (q.query.rank && q.query.name) {
-    //     let sqlSelect = `SET @row_number = 0; SELECT * FROM (SELECT (@row_number:=@row_number + 1) AS num, scoreID, name, score FROM leaderboard ORDER BY score DESC) AS t WHERE t.name='${q.query.name};`;
-    //     // db.query(`SELECT RowNumber, name, score FROM (SELECT name, score, ROW_NUMBER() OVER (ORDER BY score DESC) AS 'RowNumber' FROM leaderboard) AS t WHERE t.name='${q.query.name}'`, function(err, results) {
-    //     db.query(sqlSelect, function(err, results) {
-    //         if (err) {
-    //             throw err;
-    //         }
-    //         let rank = results[0].RowNumber;
-    //         let name = results[0].name;
-    //         let score = results[0].score;
-    //         let returnStr = `<div>Your Rank: ${rank}</div><div>Name: ${name}</div><div>Score: ${score}</div>`;
-    //         res.write(returnStr);
-    //         res.end();
-    //     });
+    } else if (q.query.scoreID) {
+        let sqlSelect = `SET @row_number = 0; SELECT * FROM (SELECT (@row_number:=@row_number + 1) AS num, scoreID, name, score FROM leaderboard ORDER BY score DESC) AS t WHERE t.scoreID='${q.query.scoreID}';`;
+        // db.query(`SELECT RowNumber, name, score FROM (SELECT name, score, ROW_NUMBER() OVER (ORDER BY score DESC) AS 'RowNumber' FROM leaderboard) AS t WHERE t.name='${q.query.name}'`, function(err, results) {
+        db.query(sqlSelect, function(err, results) {
+            if (err) {
+                throw err;
+            }
+            let rank = results[0].num;
+            let name = results[0].name;
+            let score = results[0].score;
+            let returnStr = `<div>Your Rank: ${rank}</div><div>Name: ${name}</div><div>Score: ${score}</div>`;
+            res.write(returnStr);
+            res.end();
+        });
     } else {
         db.query(`SELECT * FROM leaderboard ORDER BY score DESC LIMIT 5`, function (err, results) {
             if (err) {

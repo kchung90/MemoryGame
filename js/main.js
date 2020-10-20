@@ -328,6 +328,7 @@ function submitData() {
         xhttp.send();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
+                localStorage.setItem("scordID", this.responseText);
                 window.location.href = PATH_TO_LEADERBOARD;
             }
         };
@@ -346,15 +347,16 @@ function loadLeaderboard() {
             document.getElementById(
                 "container"
             ).innerHTML = this.responseText;
-            // displayUserRank();
+            displayUserRank();
         }
     };
 }
 
 function displayUserRank() {
     let xhttp = new XMLHttpRequest();
-    let name = localStorage.getItem("name");
-    xhttp.open("GET", "https://memorygame-db.herokuapp.com/?rank=1&name=" + name, true);
+    // let name = localStorage.getItem("name");
+    let scoreID = localStorage.getItem("scoreID");
+    xhttp.open("GET", "https://memorygame-db.herokuapp.com/?scoreID=" + scoreID, true);
     // xhttp.open("GET", "http://localhost:8888/?rank=1&name=" + name, true);
     xhttp.send();
     xhttp.onreadystatechange = function() {
