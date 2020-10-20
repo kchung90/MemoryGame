@@ -2,18 +2,7 @@ const http = require("http");
 const mysql = require("mysql");
 const url = require("url");
 
-// const db = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "",
-//     database: "comp4537",
-// });
-// const db = mysql.createPool({
-//     host: "us-cdbr-east-02.cleardb.com",
-//     user: "ba6b03a3eba02a",
-//     password: "fc06b754",
-//     database: "heroku_37412a89fd8ee50",
-// });
+// Using JawsDB MySQL on Heroku
 const db = mysql.createPool(process.env.JAWSDB_URL);
 
 http.createServer(function (req, res) {
@@ -25,8 +14,9 @@ http.createServer(function (req, res) {
     });
     
     if (q.query.name && q.query.score) {
-        let sqlInsert = `INSERT INTO leaderboard(name, score) VALUES('${q.query.name}', ${q.query.score})`;
-        db.query(sqlInsert, function(err, results) {
+        // For inserting user's information into the database
+        let sqlCommand = `INSERT INTO leaderboard(name, score) VALUES('${q.query.name}', ${q.query.score})`;
+        db.query(sqlCommand, function(err, results) {
             if (err) {
                 throw err;
             }
@@ -36,10 +26,9 @@ http.createServer(function (req, res) {
             res.end();
         });
     } else if (q.query.scoreID) {
-        // let sqlSelect = `SET @row_number = 0; SELECT * FROM (SELECT (@row_number:=@row_number + 1) AS num, scoreID, name, score FROM leaderboard ORDER BY score DESC) AS t WHERE t.scoreID='${q.query.scoreID}';`;
-        let sqlSelect = `SELECT * FROM (SELECT RANK() OVER (ORDER BY score DESC) as num, scoreID, name, score FROM leaderboard) as t WHERE t.scoreID = '${q.query.scoreID}'`;
-        // db.query(`SELECT RowNumber, name, score FROM (SELECT name, score, ROW_NUMBER() OVER (ORDER BY score DESC) AS 'RowNumber' FROM leaderboard) AS t WHERE t.name='${q.query.name}'`, function(err, results) {
-        db.query(sqlSelect, function(err, results) {
+        // For retreiving rank information of a user
+        let sqlCommand = `SELECT * FROM (SELECT RANK() OVER (ORDER BY score DESC) as num, scoreID, name, score FROM leaderboard) as t WHERE t.scoreID = '${q.query.scoreID}'`;
+        db.query(sqlCommand, function(err, results) {
             if (err) {
                 throw err;
             }
@@ -51,6 +40,7 @@ http.createServer(function (req, res) {
             res.end();
         });
     } else {
+        // For displaying top 5 users
         db.query(`SELECT * FROM (SELECT RANK() OVER (ORDER BY score DESC) as num, scoreID, name, score FROM leaderboard) as t ORDER BY score DESC LIMIT 5`, function (err, results) {
             if (err) {
                 throw err;
@@ -66,4 +56,3 @@ http.createServer(function (req, res) {
     }
 
 }).listen(process.env.PORT);
-// }).listen(8888);

@@ -317,6 +317,11 @@ function returnToGame() {
     window.location.href = PATH_TO_INDEX;
 }
 
+/**
+ * Submits the user data to the database by sending a GET request with name and score as parameters.
+ * Upon successful request, the inserted ID of the data is returned and it gets stored in local storage.
+ * Also, takes the browser to the Leaderboard page
+ */
 function submitData() {
     let xhttp = new XMLHttpRequest();
     let score = localStorage.getItem("score");
@@ -324,7 +329,6 @@ function submitData() {
     localStorage.setItem("name", name);
     if (name !== null && name !== "") {
         xhttp.open("GET", "https://memorygame-db.herokuapp.com/?name=" + name + "&score=" + score, true);
-        // xhttp.open("GET", "http://localhost:8888/?name=" + name + "&score=" + score, true);
         xhttp.send();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -333,31 +337,34 @@ function submitData() {
             }
         };
     } else {
-        alert("Name must be filled in!");
+        alert("Name must be filled in!"); // Alerts the user if the input field is left empty
     }
 }
 
+/**
+ * Displays the leaderboard table. Retrieves data from the database by sending a GET request.
+ * Also triggers to display the user rank
+ */
 function loadLeaderboard() {
     let xhttp = new XMLHttpRequest();
     xhttp.open("GET", "https://memorygame-db.herokuapp.com/", true);
-    // xhttp.open("GET", "http://localhost:8888/", true);
     xhttp.send();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById(
-                "container"
-            ).innerHTML = this.responseText;
+            document.getElementById("container").innerHTML = this.responseText;
             displayUserRank();
         }
     };
 }
 
+/**
+ * Displays the user's rank on the leaderboard page.
+ * Score ID of the user is sent through a GET request to the database and retrieves its rank information.
+ */
 function displayUserRank() {
     let xhttp = new XMLHttpRequest();
-    // let name = localStorage.getItem("name");
     let scoreID = localStorage.getItem("scoreID");
     xhttp.open("GET", "https://memorygame-db.herokuapp.com/?scoreID=" + scoreID, true);
-    // xhttp.open("GET", "http://localhost:8888/?rank=1&name=" + name, true);
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
