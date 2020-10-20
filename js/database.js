@@ -51,13 +51,13 @@ http.createServer(function (req, res) {
             res.end();
         });
     } else {
-        db.query(`SELECT * FROM leaderboard ORDER BY score DESC LIMIT 5`, function (err, results) {
+        db.query(`SELECT * FROM (SELECT RANK() OVER (ORDER BY score DESC) as num, scoreID, name, score FROM leaderboard) as t ORDER BY score DESC LIMIT 5`, function (err, results) {
             if (err) {
                 throw err;
             }
             let scoreTable = "<table><tr><th>Rank</th><th>Name</th><th>Score</th></tr>";
             for (let i = 0; i < results.length; i++) {
-                scoreTable += "<tr><td>" + (i + 1) +"</td><td>" + results[i].name + "</td><td>" + results[i].score + "</td></tr>";
+                scoreTable += "<tr><td>" + results[i].num +"</td><td>" + results[i].name + "</td><td>" + results[i].score + "</td></tr>";
             }
             scoreTable += "</table>";
             res.write(scoreTable);
