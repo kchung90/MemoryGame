@@ -36,7 +36,8 @@ http.createServer(function (req, res) {
             res.end();
         });
     } else if (q.query.scoreID) {
-        let sqlSelect = `SET @row_number = 0; SELECT * FROM (SELECT (@row_number:=@row_number + 1) AS num, scoreID, name, score FROM leaderboard ORDER BY score DESC) AS t WHERE t.scoreID='${q.query.scoreID}';`;
+        // let sqlSelect = `SET @row_number = 0; SELECT * FROM (SELECT (@row_number:=@row_number + 1) AS num, scoreID, name, score FROM leaderboard ORDER BY score DESC) AS t WHERE t.scoreID='${q.query.scoreID}';`;
+        let sqlSelect = `SELECT * FROM (SELECT RANK() OVER (ORDER BY score DESC) as num, scoreID, name, score FROM leaderboard) as t WHERE t.scoreID = '${q.query.scoreID}'`;
         // db.query(`SELECT RowNumber, name, score FROM (SELECT name, score, ROW_NUMBER() OVER (ORDER BY score DESC) AS 'RowNumber' FROM leaderboard) AS t WHERE t.name='${q.query.name}'`, function(err, results) {
         db.query(sqlSelect, function(err, results) {
             if (err) {
