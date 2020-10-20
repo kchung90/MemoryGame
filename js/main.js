@@ -328,7 +328,7 @@ function submitData() {
         xhttp.send();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                localStorage.setItem("scordID", this.responseText);
+                localStorage.setItem("scoreID", this.responseText);
                 window.location.href = PATH_TO_LEADERBOARD;
             }
         };
